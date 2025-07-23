@@ -1,3 +1,4 @@
+package Operations;
 public class StringOperations {
     public static void main(String[] args) {
         String name = " Steve Willis" + "!";
