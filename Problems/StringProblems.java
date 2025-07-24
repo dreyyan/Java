@@ -31,6 +31,10 @@ public class StringProblems {
         return vowelCount;
     }
 
+    public static String replaceWord(String str, String wordToReplace, String replacedWord) {
+        return str.replace(wordToReplace, replacedWord);
+    }
+
     public static boolean isPalindrome(String str1) {
         StringBuilder str2 = new StringBuilder();
 
@@ -80,12 +84,59 @@ public class StringProblems {
         return sb.toString();
     }
 
+    public static String buildNumbers(int maxNumber) {
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 1; i < maxNumber + 1; ++i) {
+            sb.append(i);
+        }
+
+        return sb.toString();
+    }
+
+    public static String insertWord(String str, String wordToAppend) {
+        StringBuilder sb = new StringBuilder(str);
+
+        sb.append(' ' + wordToAppend);
+        return sb.toString();
+    }
+
+    public static String compressString(String rawString) {
+        StringBuilder sb = new StringBuilder();
+        char currentChar = rawString.charAt(0);
+        int charCount = 1;
+
+        for (int i = 1; i < rawString.length(); ++i) {
+            if (currentChar == '\0') { currentChar = rawString.charAt(i); }
+            if (rawString.charAt(i) == rawString.charAt(i - 1)) { ++charCount; }
+            else {
+                sb.append(currentChar);
+                sb.append(charCount);
+                charCount = 1;
+                currentChar = rawString.charAt(i);
+            }
+        }
+        
+        sb.append(currentChar);
+        sb.append(charCount);
+
+        return sb.toString();
+    }
+
+    // public static String[] palindromeBuilder(String characters) {
+    //     return "";
+    // }
+
     public static void main(String[] args) {
         System.out.println(reverseString("The quick brown fox jumps over the fence."));
         System.out.println(vowelCount("onomatopoeia"));
         System.out.println(isPalindrome("madam"));
+        System.out.println(replaceWord("You are doing bad!", "bad", "great"));
         System.out.println(reverseSentenceWords("The quick brown fox jumps over the fence"));
         System.out.println(removeAllVowels("What a great day to be alive!"));
         System.out.println(removeConsecutiveDuplicateCharacters("aaabbccccccdeeee"));
+        System.out.println(buildNumbers(9));
+        System.out.println(insertWord("Super", "Mario"));
+        System.out.println(compressString("aabcccccaaa"));
     }
 }
