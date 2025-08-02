@@ -192,12 +192,9 @@ public class ArrayProblems {
         for (int i = 0; i < nums.length - 1; ++i) {
             int currentElement = nums[i];
 
-            boolean alreadyAdded = false;
-
             // check if element already added
             for (int k = 0; k < nums.length; ++k) {
                 if (recurredElements[k] == currentElement) {
-                    alreadyAdded = true;
                     break;
                 }
             }
@@ -209,8 +206,6 @@ public class ArrayProblems {
                     break;
                 }
             }
-            
-            alreadyAdded = false; // reset flag
         }
 
         return Arrays.copyOf(recurredElements, counter);
@@ -222,13 +217,37 @@ public class ArrayProblems {
             for (int j = nums.length - 1; j > i; --j) {
                 if (nums[j - 1] == 0 && nums[j] != 0) {
                     int temp = nums[j];
-                    nums[j] = nums[j + 1];
-                    nums[j + 1] = temp;
+                    nums[j] = nums[j - 1];
+                    nums[j - 1] = temp;
                 }
             }
         }
 
         return nums;
+    }
+
+    public static int smallestMissingPositiveInteger(int[] nums) {
+        int smallestPositive = 1;
+        nums = Arrays.stream(nums).sorted().toArray();
+
+        for (int i = 0; i < nums.length; ++i) {
+            if (nums[i] < smallestPositive) { continue; }
+            else if (nums[i] == smallestPositive ) { ++smallestPositive; }
+            else if (nums[i] > smallestPositive) { break; }
+        }
+
+        return smallestPositive;
+    }
+
+    public static int maximumTwoElementProduct(int[] nums) {
+        int maxProduct = 1;
+
+        for (int i = 0; i < nums.length - 1; ++i) {
+            for (int j = i + 1; j < nums.length; ++j) {
+                if (nums[i] * nums[j] > maxProduct) { maxProduct = nums[i] * nums[j]; }
+            }
+        }
+        return maxProduct; 
     }
 
     public static void main(String[] args) {
@@ -246,7 +265,9 @@ public class ArrayProblems {
         // sumPair(new int[] {2, 4, 3, 5, 7}, 9);
         // System.out.println(Arrays.toString(prioritizeNonZeros(new int[] {0, 3, 0, 5, 2, 0, 1})));
         // System.out.println(longestEqualElementsSubarray(new int[] {1, 2, 2, 2, 3, 1}));
-        System.out.println(Arrays.toString(recurringElements(new int[] {1, 5, 1, 3, 2, 5, 4})));
-        System.out.println(Arrays.toString(shiftNonZeroElementsLeft(new int[] {1, 0, 2, 0, 0, 3})));
+        // System.out.println(Arrays.toString(recurringElements(new int[] {1, 5, 1, 3, 2, 5, 4})));
+        // System.out.println(Arrays.toString(shiftNonZeroElementsLeft(new int[] {1, 0, 2, 0, 0, 3})));
+        // System.out.println(smallestMissingPositiveInteger(new int[] {3, 4, -1, 1}));
+        System.out.println(maximumTwoElementProduct(new int[] {2, 3, 4, 5, 1}));
     }
 }
