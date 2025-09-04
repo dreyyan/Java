@@ -1,17 +1,19 @@
 package Problems;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class ArrayProblems {
+
     public static int maxElement(int[] nums) {
         int maxNumber = -1;
-         for (int i = 0; i < nums.length; ++i) {
+        for (int i = 0; i < nums.length; ++i) {
             if (i > maxNumber) {
                 maxNumber = nums[i];
             }
-         }
-         return maxNumber;
+        }
+        return maxNumber;
     }
 
     public static int digitSum(String digits) {
@@ -31,7 +33,7 @@ public class ArrayProblems {
             System.out.println('1');
             return;
         }
-       
+
         System.out.printf("%d, %d", num1, num2);
 
         for (int i = 2; i < n; ++i) {
@@ -84,7 +86,9 @@ public class ArrayProblems {
         int evenCount = 0;
 
         for (int i = 0; i < nums.length; ++i) {
-            if (nums[i] % 2 == 0) { ++evenCount; }
+            if (nums[i] % 2 == 0) {
+                ++evenCount;
+            }
         }
 
         return evenCount;
@@ -97,7 +101,9 @@ public class ArrayProblems {
 
     public static int indexOf(int[] nums, int target) {
         for (int i = 0; i < nums.length; ++i) {
-            if (nums[i] == target) { return i; }
+            if (nums[i] == target) {
+                return i;
+            }
         }
 
         return -1;
@@ -116,10 +122,14 @@ public class ArrayProblems {
     }
 
     public static int[] rotateArrayRight(int[] nums, int rotations) {
-        if (nums == null || nums.length == 0) { return nums; }
-        
+        if (nums == null || nums.length == 0) {
+            return nums;
+        }
+
         rotations %= nums.length;
-        if (rotations == 0) { return nums.clone(); }
+        if (rotations == 0) {
+            return nums.clone();
+        }
 
         int[] rotatedArray = new int[nums.length];
         int counter = 0;
@@ -141,11 +151,13 @@ public class ArrayProblems {
         List<int[]> sumPairs = new ArrayList<>();
 
         for (int i = 0; i < nums.length - 1; ++i) {
-            if (nums[i] > target) { continue; } // skip if current number is greater than the target
+            if (nums[i] > target) {
+                continue;
+            } // skip if current number is greater than the target
             missingPair = target - nums[i]; // calculate the missing number being searched, then look for the missing pair in the array
             for (int j = i + 1; j < nums.length; ++j) {
                 if (nums[j] == missingPair) {
-                    sumPairs.add(new int[] {i, j});
+                    sumPairs.add(new int[]{i, j});
                 }
             }
         }
@@ -178,8 +190,11 @@ public class ArrayProblems {
         // return the length of the subarray with the longest equal elements
         // Test Case: {1, 2, 2, 2, 3, 1}
         for (int i = 1; i < nums.length; ++i) {
-            if (nums[i - 1] == nums[i]) { ++currentLength; }
-            else { longestLength = Math.max(longestLength, currentLength); }
+            if (nums[i - 1] == nums[i]) {
+                ++currentLength;
+            } else {
+                longestLength = Math.max(longestLength, currentLength);
+            }
         }
 
         return longestLength;
@@ -231,9 +246,13 @@ public class ArrayProblems {
         nums = Arrays.stream(nums).sorted().toArray();
 
         for (int i = 0; i < nums.length; ++i) {
-            if (nums[i] < smallestPositive) { continue; }
-            else if (nums[i] == smallestPositive ) { ++smallestPositive; }
-            else if (nums[i] > smallestPositive) { break; }
+            if (nums[i] < smallestPositive) {
+                continue;
+            } else if (nums[i] == smallestPositive) {
+                ++smallestPositive;
+            } else if (nums[i] > smallestPositive) {
+                break;
+            }
         }
 
         return smallestPositive;
@@ -244,10 +263,12 @@ public class ArrayProblems {
 
         for (int i = 0; i < nums.length - 1; ++i) {
             for (int j = i + 1; j < nums.length; ++j) {
-                if (nums[i] * nums[j] > maxProduct) { maxProduct = nums[i] * nums[j]; }
+                if (nums[i] * nums[j] > maxProduct) {
+                    maxProduct = nums[i] * nums[j];
+                }
             }
         }
-        return maxProduct; 
+        return maxProduct;
     }
 
     public static void main(String[] args) {
@@ -268,6 +289,6 @@ public class ArrayProblems {
         // System.out.println(Arrays.toString(recurringElements(new int[] {1, 5, 1, 3, 2, 5, 4})));
         // System.out.println(Arrays.toString(shiftNonZeroElementsLeft(new int[] {1, 0, 2, 0, 0, 3})));
         // System.out.println(smallestMissingPositiveInteger(new int[] {3, 4, -1, 1}));
-        System.out.println(maximumTwoElementProduct(new int[] {2, 3, 4, 5, 1}));
+        System.out.println(maximumTwoElementProduct(new int[]{2, 3, 4, 5, 1}));
     }
 }

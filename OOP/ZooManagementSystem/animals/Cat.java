@@ -3,8 +3,9 @@ import OOP.ZooManagementSystem.characteristics.Characteristics;
 import OOP.ZooManagementSystem.interfaces.Domesticated;
 import OOP.ZooManagementSystem.interfaces.HasPaws;
 import OOP.ZooManagementSystem.interfaces.Vocalized;
+import OOP.ZooManagementSystem.interfaces.Mobile;
 
-public class Cat extends Animal implements Domesticated, HasPaws, Vocalized {
+public class Cat extends Animal implements Domesticated, HasPaws, Mobile, Vocalized {
     // ATTRIBUTES
     protected Characteristics.Color pawColor;
 
@@ -30,6 +31,11 @@ public class Cat extends Animal implements Domesticated, HasPaws, Vocalized {
 
     @Override
     public void setPawColor(Characteristics.Color color) { this.pawColor = color; } 
+
+    // Mobile (I)
+    public void move() {
+        System.out.println("* the cat is strutting *");
+    }
 
     // Vocalized (I)
     @Override
