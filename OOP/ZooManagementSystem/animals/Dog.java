@@ -31,6 +31,11 @@ public class Dog extends Animal implements Domesticated, HasPaws, Vocalized {
     @Override
     public void setPawColor(Characteristics.Color color) { this.pawColor = color; }
 
+    // Mobile (I)
+    public void move() {
+        System.out.println("* the dog is strutting *");
+    }
+
     // Vocalized (I)
     @Override
     public void makeSound() { System.out.println("*woof*"); }
