@@ -1,4 +1,4 @@
-package DSA;
+package CustomDS;
 
 public class DoublyLinkedList {
     private static class Node {
