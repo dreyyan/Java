@@ -22,17 +22,10 @@ public class Main {
             // Display operations menu
             Main.displayHeader();
 
-            // Prompt user to add a playlist if playlists is empty
+            // Notify user if playlist is empty
             if (user.getPlaylists().isEmpty()) {
                 ConsoleUtils.animatedLinePrint("You don't have any playlists yet.\n", 30);
-                String userChoice = InputUtils.getString("Add one? [y/n]: ");
-
-                // ERROR: Invalid choice
-                if (!userChoice.equalsIgnoreCase("y") && !userChoice.equalsIgnoreCase("n"))
-                    ConsoleUtils.errorMessage("Invalid input, please enter 'y' for yes and 'n' for no", 3);
-            } else {
-                user.displayPlaylists();                
-            }
+            } user.displayPlaylists();
 
             // Display operations
             for (String operation : operations) {
@@ -45,12 +38,13 @@ public class Main {
             // Prompt user to enter a number input
             int userChoice = InputUtils.getInt("Enter a choice: ");
 
-            // Do operation based on user's input
+            // Do operation base on user's input
             switch (userChoice) {
                 case 1 -> user.createPlaylist();
-                case 2 -> user.getMusicPlayer().openPlaylist();
+                case 2 -> user.getMusicPlayer().getPlaybackController().openPlaylist();
                 case 3 -> user.deletePlaylist();
                 case 4 -> System.exit(0);
+                default -> ConsoleUtils.errorMessage("Invalid choice, please enter a valid number between 1-4", 3);
             }
         }
     }

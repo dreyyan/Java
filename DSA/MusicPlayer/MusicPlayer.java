@@ -1,106 +1,34 @@
 package MusicPlayer;
 import Utility.ConsoleUtils;
-import Utility.InputUtils;
 public class MusicPlayer {
     // Attributes
     private final User user;
     private Playlist currentPlaylist;
     private final PlaybackController playbackController;
 
-    // Default Constructor
+    // Parameterized Constructor
     public MusicPlayer(User user) {
         this.user = user;
         this.playbackController = new PlaybackController(this);
     }
 
-    // Getters & Setterse
+    // Getters & Setters
     public User getUser() { return this.user; }
     public Playlist getCurrentPlaylist() { return this.currentPlaylist; }
+    public PlaybackController getPlaybackController() { return this.playbackController; }
     
     public void setCurrentPlaylist(Playlist currentPlaylist) { this.currentPlaylist = currentPlaylist; }
 
     // Methods
-    public void openPlaylist() {
-        // Search for a playlist's name
-        PlaylistSearchResult result = getUser().searchPlaylist();
-        Playlist playlistToOpen = result.getPlaylist();
 
-        // ERROR: Non-existing result
-        if (playlistToOpen == null) {
-            ConsoleUtils.errorMessage("Playlist does not exist", 3);
-            return;
-        }
-     
-        // Open playlist if it exists by displaying songs
-        getUser().getMusicPlayer().setCurrentPlaylist(playlistToOpen);
-        // ConsoleUtils.animatedCharPrint(String.format("\"%s\" playlist opened...\n", result.getPlaylist().getName()), 30);
-
-        ConsoleUtils.clearScreen();
-        Main.displayHeader();
-
-        // Prompt user to add a playlist if playlists is empty
-        if (getUser().getMusicPlayer().getUser().getPlaylists().isEmpty()) {
-            ConsoleUtils.animatedLinePrint("You don't have any playlists yet.\n", 30);
-
-            while (true) { 
-                String userChoice = InputUtils.getString("Add one? [y/n]: ");
-
-                // ERROR: Invalid choice
-                if (!userChoice.equalsIgnoreCase("y") && !userChoice.equalsIgnoreCase("n"))
-                    ConsoleUtils.errorMessage("Invalid input, please enter 'y' for yes and 'n' for no", 3);
-                else break;
-            }
-
-            // Add a playlist to the user's playlists
-            getUser().getMusicPlayer().getUser().createPlaylist();
-        } else {
-            // Prompt user to add a song if playlist is empty            
-            if (playlistToOpen.getSongs().isEmpty()) {
-                ConsoleUtils.animatedLinePrint("You currently have no songs yet.\n", 200);
-
-                while (true) { 
-                    String userChoice = InputUtils.getString("Add one? [y/n]: ");
-
-                    // ERROR: Invalid choice
-                    if (!userChoice.equalsIgnoreCase("y") && !userChoice.equalsIgnoreCase("n"))
-                        ConsoleUtils.errorMessage("Invalid input, please enter 'y' for yes and 'n' for no", 3);
-                    else if (userChoice.equalsIgnoreCase("n")) {
-                        return;
-                    } else break;
-                }
-
-                ConsoleUtils.clearScreen(); // Clear the screen before redirecting
-                Main.displayHeader();
-                
-                // Add a song to the user's playlist
-                getUser().getMusicPlayer().getCurrentPlaylist().addSongToPlaylist();
-            } else {
-                getUser().getMusicPlayer().getCurrentPlaylist().displaySongs();
-            }
-        }
-    }
-    
-    public void closePlaylist(Playlist playlist) {
-        // ERROR: Closed playlist
-        if (getUser().getMusicPlayer().getCurrentPlaylist() == null) {
-            ConsoleUtils.errorMessage("Playlist already closed", 3);
-            return;
-        }
-
-        // Close playlist 
-        ConsoleUtils.animatedCharPrint(String.format("\"%s\" playlist closed...\n", playlist.getName()), 30);
-    }
     public void playMusic(Music musicToPlay) {
         for (Music music : getCurrentPlaylist().getSongs()) {
             if (music == musicToPlay) {
                 ConsoleUtils.animatedCharPrint(String.format("Now playing \"%s\"...\n", music.getTitle()), 30);
                 return;
             }
-        }
-
-        ConsoleUtils.errorMessage(String.format("Music \"%s\" does not exist in the playlist", musicToPlay.getTitle()), 3);
+        } ConsoleUtils.errorMessage(String.format("Music \"%s\" does not exist in the playlist", musicToPlay.getTitle()), 3);
     }
-
 
     public void pauseMusic() {
 

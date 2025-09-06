@@ -19,7 +19,7 @@ public class InputUtils {
                 scanner.nextLine();
                 return input;
             } catch (InputMismatchException e) {
-                ConsoleUtils.errorMessage("Invalid input, please enter a valid number", 3); 
+                ConsoleUtils.errorMessage("Invalid input, please enter a valid number\n", 3);
                 scanner.nextLine();
             } 
         }
@@ -35,7 +35,7 @@ public class InputUtils {
                 scanner.nextLine();
                 return input;
             } catch (InputMismatchException e) {
-                ConsoleUtils.errorMessage("Invalid input, please enter a valid decimal number", 3); 
+                ConsoleUtils.errorMessage("Invalid input, please enter a valid decimal number\n", 3); 
             } 
         }
     }
@@ -50,7 +50,7 @@ public class InputUtils {
                 scanner.nextLine();
                 return input;
             } catch (InputMismatchException e) {
-                ConsoleUtils.errorMessage("Invalid input, please enter a valid decimal number", 3); 
+                ConsoleUtils.errorMessage("Invalid input, please enter a valid decimal number\n", 3); 
             } 
         }
     }
@@ -64,7 +64,7 @@ public class InputUtils {
                 char input = scanner.nextLine().charAt(0);
                 return input;
             } catch (InputMismatchException e) {
-                ConsoleUtils.errorMessage("Invalid input, please enter a valid string", 3); 
+                ConsoleUtils.errorMessage("Invalid input, please enter a valid string\n", 3); 
             } 
         }
     }
@@ -78,7 +78,7 @@ public class InputUtils {
                 String input = scanner.nextLine();
                 return input;
             } catch (InputMismatchException e) {
-                ConsoleUtils.errorMessage("Invalid input, please enter a valid string", 3); 
+                ConsoleUtils.errorMessage("Invalid input, please enter a valid string\n", 3); 
             } 
         }
     }
@@ -92,7 +92,7 @@ public class InputUtils {
                 boolean input = scanner.nextBoolean();
                 return input;
             } catch (InputMismatchException e) {
-                ConsoleUtils.errorMessage("Invalid input, please enter a valid boolean", 3); 
+                ConsoleUtils.errorMessage("Invalid input, please enter a valid boolean\n", 3); 
             } 
         }
     }

@@ -61,8 +61,6 @@ public class PlaybackController {
                     } else break;
                 }
 
-                ConsoleUtils.clearScreen(); // Clear the screen before redirecting
-                Main.displayHeader();
                 
                 // Add a song to the user's playlist
                 musicPlayer.getCurrentPlaylist().addSongToPlaylist();
@@ -71,16 +69,12 @@ public class PlaybackController {
             }
         }
     }
-    
+
     public void closePlaylist(Playlist playlist) {
-        // ERROR: Closed playlist
+        // ERROR: Already closed playlist
         if (musicPlayer.getCurrentPlaylist() == null) {
             ConsoleUtils.errorMessage("Playlist already closed", 3);
             return;
-        }
-
-        // Close playlist 
-        ConsoleUtils.animatedCharPrint(String.format("\"%s\" playlist closed...\n", playlist.getName()), 30);
+        } ConsoleUtils.animatedCharPrint(String.format("\"%s\" playlist closed...\n", playlist.getName()), 30);
     }
-    
 }

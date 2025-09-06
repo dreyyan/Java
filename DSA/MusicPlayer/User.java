@@ -19,14 +19,17 @@ public class User {
     public void setMusicPlayer(MusicPlayer musicPlayer) { this.musicPlayer = musicPlayer; }
 
     // Default Constructor
-    public User() { this.name = "User"; }
+    public User() {
+        this.name = "User";
+        this.playlists = new LinkedList<>();
+        this.musicPlayer = new MusicPlayer(this);
+    }
 
     // Parameterized Constructor
     public User(String name) {
         this.name = name;
         this.playlists = new LinkedList<>();
-        this.musicPlayer = new MusicPlayer(this, null);
-        // ConsoleUtils.animatedCharPrint(String.format("+ User \"%s\" created!\n", name), 30);
+        this.musicPlayer = new MusicPlayer(this);
     }
 
     // Methods
@@ -34,7 +37,6 @@ public class User {
         this.getPlaylists().add(newPlaylist);
     }
 
-    
     public void displayPlaylists() {
         ConsoleUtils.animatedLinePrint("[ My Playlist ]\n", 200);
         for (Playlist playlist : playlists) {
@@ -74,7 +76,8 @@ public class User {
         }
 
         // Add new playlist to the playlists
-        addPlaylistToPlaylists(result.getPlaylist());
+        Playlist newPlaylist = new Playlist(result.getName());
+        addPlaylistToPlaylists(newPlaylist);
         ConsoleUtils.animatedCharPrint(String.format("+ Playlist \"%s\" created successfully.", result.getName()), 30);
     }
     

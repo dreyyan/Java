@@ -16,7 +16,6 @@ public class Playlist {
     public Playlist(String name) {
         this.name = name;
         this.songs = new LinkedList<>();
-        // ConsoleUtils.animatedPrint(String.format("Created \"%s\" playlist.\n", name), 30);
     }
 
     // Getters & Setters
@@ -72,8 +71,8 @@ public class Playlist {
             songAlbum = InputUtils.getString("Enter song album: ");
 
             // If blank song album, set it to 'N/A'
-            if (!songAlbum.equals("")) {
-                songAlbum = "N/A";      
+            if (songAlbum.equals("")) {
+                songAlbum = "N/A";
             } break;
         }
 
@@ -103,7 +102,7 @@ public class Playlist {
             songYear = InputUtils.getInt("Enter song year: ");
 
             // Break loop if valid year
-            if (songYear >= 1900 && songYear < currentYear) {
+            if (songYear >= 1900 && songYear <= currentYear) {
                 break;
             }
 
@@ -134,29 +133,31 @@ public class Playlist {
             
             songFilePath = InputUtils.getString("Enter song file path: ");
 
-            // ERROR: Blank input
-            if (!songFilePath.equals("")) {
-                break;
-            }
-
             // Create a new file instance
             Path path = Paths.get(songFilePath);
 
             // If file exists, move the file to the 'music' folder
             if (Files.exists(path) && Files.isRegularFile(path) && path.toString().toLowerCase().endsWith(".mp3")) {
-                Path target = Paths.get("music_collection/");
+                Path targetDir = Paths.get("music_collection");
                 try {
-                    Files.move(path, target); 
+                    // Ensure the target directory exists
+                    Files.createDirectories(targetDir);
+                    Path target = targetDir.resolve(path.getFileName());
+                    Files.move(path, target);
+                    songFilePath = target.toString(); // Update songFilePath to new location
+                    break;
                 } catch (IOException e) {
-                    ConsoleUtils.errorMessage(e.getMessage(), 3);
-                } break;
-            } else { // ERROR: Non-existing file
-                ConsoleUtils.errorMessage("File does not exist or is not a valid format", 3);
+                    ConsoleUtils.errorMessage("Error moving file: " + e.getMessage(), 3);
+                }
+            } else {
+                ConsoleUtils.errorMessage("File does not exist or is not a valid MP3 format", 3);
             }
         }
 
         // After song info validation, create a new song and add it to the current playlist
-        addSongToPlaylist((new Music(songTitle, songArtist, songAlbum, songGenre, songYear, songDuration)));
+        Music newSong = new Music(songTitle, songArtist, songAlbum, songGenre, songYear, songDuration);
+        newSong.setFilePath(songFilePath); // Assign the file path
+        addSongToPlaylist(newSong);
     }
 
     public void addSongToPlaylist(Music music) {
