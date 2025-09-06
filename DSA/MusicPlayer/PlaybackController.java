@@ -1,28 +1,20 @@
 package MusicPlayer;
 import Utility.ConsoleUtils;
 import Utility.InputUtils;
-public class MusicPlayer {
+
+public class PlaybackController {
     // Attributes
-    private final User user;
-    private Playlist currentPlaylist;
-    private final PlaybackController playbackController;
-
-    // Default Constructor
-    public MusicPlayer(User user) {
-        this.user = user;
-        this.playbackController = new PlaybackController(this);
+    private final MusicPlayer musicPlayer;
+   
+    // Parameterized Constructor
+    public PlaybackController(MusicPlayer musicPlayer) {
+        this.musicPlayer = musicPlayer;
     }
-
-    // Getters & Setterse
-    public User getUser() { return this.user; }
-    public Playlist getCurrentPlaylist() { return this.currentPlaylist; }
     
-    public void setCurrentPlaylist(Playlist currentPlaylist) { this.currentPlaylist = currentPlaylist; }
-
     // Methods
     public void openPlaylist() {
         // Search for a playlist's name
-        PlaylistSearchResult result = getUser().searchPlaylist();
+        PlaylistSearchResult result = musicPlayer.getUser().searchPlaylist();
         Playlist playlistToOpen = result.getPlaylist();
 
         // ERROR: Non-existing result
@@ -32,14 +24,14 @@ public class MusicPlayer {
         }
      
         // Open playlist if it exists by displaying songs
-        getUser().getMusicPlayer().setCurrentPlaylist(playlistToOpen);
+        musicPlayer.setCurrentPlaylist(playlistToOpen);
         // ConsoleUtils.animatedCharPrint(String.format("\"%s\" playlist opened...\n", result.getPlaylist().getName()), 30);
 
         ConsoleUtils.clearScreen();
         Main.displayHeader();
 
         // Prompt user to add a playlist if playlists is empty
-        if (getUser().getMusicPlayer().getUser().getPlaylists().isEmpty()) {
+        if (musicPlayer.getUser().getPlaylists().isEmpty()) {
             ConsoleUtils.animatedLinePrint("You don't have any playlists yet.\n", 30);
 
             while (true) { 
@@ -52,7 +44,7 @@ public class MusicPlayer {
             }
 
             // Add a playlist to the user's playlists
-            getUser().getMusicPlayer().getUser().createPlaylist();
+            musicPlayer.getUser().createPlaylist();
         } else {
             // Prompt user to add a song if playlist is empty            
             if (playlistToOpen.getSongs().isEmpty()) {
@@ -73,16 +65,16 @@ public class MusicPlayer {
                 Main.displayHeader();
                 
                 // Add a song to the user's playlist
-                getUser().getMusicPlayer().getCurrentPlaylist().addSongToPlaylist();
+                musicPlayer.getCurrentPlaylist().addSongToPlaylist();
             } else {
-                getUser().getMusicPlayer().getCurrentPlaylist().displaySongs();
+                musicPlayer.getCurrentPlaylist().displaySongs();
             }
         }
     }
     
     public void closePlaylist(Playlist playlist) {
         // ERROR: Closed playlist
-        if (getUser().getMusicPlayer().getCurrentPlaylist() == null) {
+        if (musicPlayer.getCurrentPlaylist() == null) {
             ConsoleUtils.errorMessage("Playlist already closed", 3);
             return;
         }
@@ -90,27 +82,5 @@ public class MusicPlayer {
         // Close playlist 
         ConsoleUtils.animatedCharPrint(String.format("\"%s\" playlist closed...\n", playlist.getName()), 30);
     }
-    public void playMusic(Music musicToPlay) {
-        for (Music music : getCurrentPlaylist().getSongs()) {
-            if (music == musicToPlay) {
-                ConsoleUtils.animatedCharPrint(String.format("Now playing \"%s\"...\n", music.getTitle()), 30);
-                return;
-            }
-        }
-
-        ConsoleUtils.errorMessage(String.format("Music \"%s\" does not exist in the playlist", musicToPlay.getTitle()), 3);
-    }
-
-
-    public void pauseMusic() {
-
-    }
-
-    // [ METHOD ]: Change shuffle method
-    public void changeShuffle() {
-        // Methods:
-        // 1. Random - Default random
-        // 2. No Repeat - Random /wo repeating
-        // 3. History Aware - Random /wo repeating last `n`
-    }
+    
 }

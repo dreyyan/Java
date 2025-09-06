@@ -7,19 +7,25 @@ public class User {
     // Attributes
     private String name;
     private LinkedList<Playlist> playlists;
+    private MusicPlayer musicPlayer;
 
     // Getters & Setters
     public String getName() { return this.name; }
     public LinkedList<Playlist> getPlaylists() { return this.playlists; }
+    public MusicPlayer getMusicPlayer() { return this.musicPlayer; }
 
     public void setName(String name) { this.name = name; }
     public void setPlaylists(LinkedList<Playlist> playlists) { this.playlists = playlists; }
+    public void setMusicPlayer(MusicPlayer musicPlayer) { this.musicPlayer = musicPlayer; }
+
+    // Default Constructor
+    public User() { this.name = "User"; }
 
     // Parameterized Constructor
     public User(String name) {
         this.name = name;
         this.playlists = new LinkedList<>();
-
+        this.musicPlayer = new MusicPlayer(this, null);
         // ConsoleUtils.animatedCharPrint(String.format("+ User \"%s\" created!\n", name), 30);
     }
 
@@ -30,11 +36,9 @@ public class User {
 
     
     public void displayPlaylists() {
-        int playlistNumber = 1;
-       
         ConsoleUtils.animatedLinePrint("[ My Playlist ]\n", 200);
         for (Playlist playlist : playlists) {
-            ConsoleUtils.animatedLinePrint(String.format("%d. %s\n", playlistNumber++, playlist.getName()), 200);
+            ConsoleUtils.animatedLinePrint(String.format(">> %s\n", playlist.getName()), 200);
         } ConsoleUtils.displayFormat('#', 33);
     }
 
