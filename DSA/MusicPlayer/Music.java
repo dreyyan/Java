@@ -1,7 +1,5 @@
 package MusicPlayer;
 
-import Utility.ConsoleUtils;
-
 public class Music {
     // Attributes
     private String title;
@@ -25,9 +23,7 @@ public class Music {
         this.genre = genre;
         this.year = year;
         this.duration = duration;
-
-        // Display notification when creating a new music
-        ConsoleUtils.animatedPrint(String.format("'%s' by %s was added successfully.\n", title, artist), 30);
+        // ConsoleUtils.animatedPrint(String.format("'%s' by %s was added successfully.\n", title, artist), 30);
     }
 
     // Getters

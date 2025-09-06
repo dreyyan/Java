@@ -75,6 +75,9 @@ public class InputUtils {
             
             try {
                 String input = scanner.nextLine();
+
+                if (input.equals(""))
+                    ConsoleUtils.errorMessage("Input cannot be blank", 3);
                 return input;
             } catch (InputMismatchException e) {
                 ConsoleUtils.errorMessage("Invalid input, please enter a valid string", 3); 

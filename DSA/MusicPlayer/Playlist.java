@@ -1,5 +1,6 @@
 package MusicPlayer;
 import Utility.ConsoleUtils;
+import Utility.InputUtils;
 import java.util.LinkedList;
 
 public class Playlist {
@@ -11,7 +12,7 @@ public class Playlist {
     public Playlist(String name) {
         this.name = name;
         this.songs = new LinkedList<>();
-        ConsoleUtils.animatedPrint(String.format("Created \"%s\" playlist.\n", name), 30);
+        // ConsoleUtils.animatedPrint(String.format("Created \"%s\" playlist.\n", name), 30);
     }
 
     // Getters & Setters
@@ -21,13 +22,18 @@ public class Playlist {
     public void setName(String name) { this.name = name; }
     public void setSongs(LinkedList<Music> songs) { this.songs = songs; }
 
-
     // Methods
+    public void renamePlaylist() {
+        // Prompt user to enter a playlist name
+        String newPlaylistName = InputUtils.getString("Enter a new playlist name: ");
+
+        setName(newPlaylistName);
+    }
+
     public void addSongToPlaylist(Music music) {
         songs.add(music);
-        ConsoleUtils.animatedPrint(String.format("Song \"%s\" added to \"%s\" playlist.\n", music.getTitle(), getName()), 30);
+        ConsoleUtils.animatedCharPrint(String.format("Song \"%s\" added to \"%s\" playlist.\n", music.getTitle(), getName()), 30);
     }
 
     public void removeSongFromPlaylist() {}
-    public void renamePlaylist() {}
 }

@@ -16,7 +16,7 @@ public class ConsoleUtils {
 
     // [METHOD]: Display error message to the console
     public static void errorMessage(String message, int sDelay) {
-        animatedPrint("ERROR: " + message, sDelay);
+        animatedCharPrint("ERROR: " + message, sDelay);
         
         try {
             Thread.sleep(sDelay * 1000);
@@ -37,10 +37,16 @@ public class ConsoleUtils {
         for (int i = 0; i < length; ++i) {
             System.out.print(symbol);
         } System.out.println();
+
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    // [METHOD]: Display the string /w delay
-    public static void animatedPrint(String str, int msDelay) {
+    // [METHOD]: Display the string /w character delay
+    public static void animatedCharPrint(String str, int msDelay) {
         for (char c : str.toCharArray()) {
             System.out.print(c);
 
@@ -52,7 +58,17 @@ public class ConsoleUtils {
         }
     }
 
+    // [METHOD]: Display the string /w line delay
+    public static void animatedLinePrint(String str, int msDelay) {
+        System.out.print(str);
+        try {
+            Thread.sleep(msDelay);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static void main(String[] args) {
-        animatedPrint("The quick brown fox jumps over the fence", 20);
+        animatedCharPrint("The quick brown fox jumps over the fence", 20);
     }
 }
