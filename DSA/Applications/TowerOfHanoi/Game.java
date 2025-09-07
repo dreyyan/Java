@@ -11,15 +11,24 @@ public class Game {
     Stack<String> tower2;
     Stack<String> tower3;
 
+    String disk1 = " - ";
+    String disk2 = "- -";
+    String disk3 = "---";
+    
+
     // Constructor
     public Game() {
         numOfDisks = 3; // Default # of disks
-        tower1 = new Stack();
-        tower2 = new Stack();
-        tower3 = new Stack();
+        tower1 = new Stack<>();
+        tower2 = new Stack<>();
+        tower3 = new Stack<>();
 
         for (int i = numOfDisks; i > 0; --i) {
-            tower1.push("-".repeat(i));
+            if (i == 3) { tower1.push(disk3); }
+            if (i == 2) { tower1.push(disk2); }
+            if (i == 1) { tower1.push(disk1); }
+            tower2.push("|");
+            tower3.push("|");
         }
     }
 
@@ -54,20 +63,16 @@ public class Game {
 
         // Start the actual game
         while (true) { 
-            // for (String disk : tower1) {
-            //     System.out.println(disk);
-            // }
-
-            // for (String disk : tower2) {
-            //     System.out.println(disk);
-            // }
-
-            // for (String disk : tower3) {
-            //     System.out.println(disk);
-            // }
-            
-            while (tower1.size() > 0) { System.out.println(tower1.pop()); }
-                InputUtils.getString("DEBUG");
+            System.out.println("Tower 1");
+            for (int i = tower1.size() - 1; i >= 0; --i) {
+                System.out.print(tower1.get(i));
+                System.out.print(" ".repeat(4));
+                System.out.print(tower2.get(i));
+                System.out.print(" ".repeat(4));
+                System.out.print(tower3.get(i));
+                System.out.println();
             }
+            InputUtils.getString("");
+        }
     }
 }
